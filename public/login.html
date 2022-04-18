@@ -13,6 +13,29 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
         integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-app.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-firestore.js"></script>
+
+    <script type="module">
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+            apiKey: "AIzaSyDPOSi-WHr6NlW2i2jsFt4OOVCL6pqY4fE",
+            authDomain: "glazba-2a027.firebaseapp.com",
+            databaseURL: "https://glazba-2a027-default-rtdb.firebaseio.com",
+            projectId: "glazba-2a027",
+            storageBucket: "glazba-2a027.appspot.com",
+            messagingSenderId: "1077966760083",
+            appId: "1:1077966760083:web:1e9e22ff835e2ccb7b4566",
+            measurementId: "G-H8GXM3YJLS"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+    </script>
 </head>
 
 <body>
@@ -23,7 +46,8 @@
             <input type="password" id="passwordSignIn" class="input-box" placeholder="Password">
 
             <br>
-            <button type="button" id="loginBtn" class="login-btn">Login <i class="fa-solid fa-right-to-bracket"></i></button>
+            <button type="button" id="loginBtn" class="login-btn">Login <i
+                    class="fa-solid fa-right-to-bracket"></i></button>
 
             <hr>
             <p class="or">OR</p>
@@ -37,20 +61,20 @@
             <br />
             <button id="googleBtn" class="social-signin google"> <i class="fa-brands fa-google"></i> Google+</button>
             <br />
-            <button id="anonymousBtn" class="social-signin anonymous"> <i class="fas fa-user"></i>  Anonymous</button>
+            <button id="anonymousBtn" class="social-signin anonymous"> <i class="fas fa-user"></i> Anonymous</button>
 
             <p>Don't have an account? <a href="signup.html">Sign Up</a></p>
         </form>
 
 
     </div>
-    <script>
-        document.getElementById('anonymousBtn').addEventListener('click', anonymousSignIn)
-
-        function anonymousSignIn(){
-            alert('Anonymous user coming through...');
-        }
-    </script>
 </body>
+<script defer>
+    document.getElementById('anonymousBtn').addEventListener('click', anonymousSignIn)
+
+    function anonymousSignIn() {
+        alert('Anonymous user coming through...');
+    }
+</script>
 
 </html>
