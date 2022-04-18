@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./CSS/login.css">
+    <title>Login GlaZba</title>
+
+    <!-- fontawesome -->
+    <!--font-awesome cdn link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <div class="loginForm">
+        <h1>Login</h1>
+        <form action="">
+            <input type="email" id="emailSignIn" class="input-box" placeholder="Your Email">
+            <input type="password" id="passwordSignIn" class="input-box" placeholder="Password">
+
+            <br>
+            <button type="button" id="loginBtn" class="login-btn">Login <i class="fa-solid fa-right-to-bracket"></i></button>
+
+            <hr>
+            <p class="or">OR</p>
+            <span class="loginwith">Sign in with</span>
+            <br />
+
+            <button id="facebookBtn" class="social-signin facebook"><i class="fa-brands fa-facebook"></i>
+                Facebook</button>
+            <br />
+            <button id="twitterBtn" class="social-signin twitter"><i class="fa-brands fa-twitter"></i> Twitter</button>
+            <br />
+            <button id="googleBtn" class="social-signin google"> <i class="fa-brands fa-google"></i> Google+</button>
+            <br />
+            <button id="anonymousBtn" class="social-signin anonymous"> <i class="fas fa-user"></i>  Anonymous</button>
+
+            <p>Don't have an account? <a href="signup.html">Sign Up</a></p>
+        </form>
+
+
+    </div>
+    <script>
+        document.getElementById('anonymousBtn').addEventListener('click', anonymousSignIn)
+
+        function anonymousSignIn(){
+            alert('Anonymous user coming through...');
+        }
+    </script>
+</body>
+
+</html>
