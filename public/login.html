@@ -44,7 +44,7 @@
             <li><a href="index.html">Home</a></li>
             <li><a href="#">Artists</a></li>
             <li><a id="logout" href="#">Logout</a></li>
-            
+
         </ul>
     </nav>
 
@@ -107,15 +107,16 @@
         document.getElementById('anonymousBtn').addEventListener('click', anonymousSignIn)
         document.getElementById('facebookBtn').addEventListener('click', facebookSignIn)
         document.getElementById('twitterBtn').addEventListener('click', twitterSignIn)
-        // document.getElementById('logout').style.display="none"
+        document.getElementById('logout').addEventListener('click', Logout)
+        document.getElementById('logout').style.display = "none"
 
         // EMAIL/PASSWORD LOGIN
-        function emailSignIn(){
+        function emailSignIn() {
             console.log('login clicked');
             let email = document.getElementById('emailSignIn').value
             let password = document.getElementById('passwordSignIn').value
 
-            firebase.auth().signInWithEmailAndPassword(email, password).catch(e=>{
+            firebase.auth().signInWithEmailAndPassword(email, password).catch(e => {
                 alert(e)
             })
 
@@ -125,12 +126,13 @@
         // google login
         let googleProvider = new firebase.auth.GoogleAuthProvider();
 
-        function googleSignIn(){
+        function googleSignIn() {
             console.log('Google login clicked');
-            firebase.auth().signInWithPopup(googleProvider).then(res=>{
+            firebase.auth().signInWithPopup(googleProvider).then(res => {
                 console.log(res.user);
                 // showuser data
-            }).catch(e=>{
+                showUserData(res.user)
+            }).catch(e => {
                 alert(e)
             })
         }
@@ -140,21 +142,22 @@
 
         function anonymousSignIn() {
             firebase.auth().signInAnonymously()
-            .then(()=>{
-                console.log('logged in anonymously');
-            }).catch(e=>{
-                alert(e)
-            })
+                .then(() => {
+                    console.log('logged in anonymously');
+                }).catch(e => {
+                    alert(e)
+                })
         }
 
         // facebook sign in
         let fbProvider = new firebase.auth.FacebookAuthProvider()
-        function facebookSignIn(){
+        function facebookSignIn() {
             console.log('facebook sign in clicked');
-            firebase.auth().signInWithPopup(fbProvider).then(res=>{
+            firebase.auth().signInWithPopup(fbProvider).then(res => {
                 console.log(res.user);
                 // showuser data
-            }).catch(e=>{
+                showUserData(res.user)
+            }).catch(e => {
                 alert(e)
             })
         }
@@ -162,16 +165,61 @@
         // twitter sign in
         let twitterProvider = new firebase.auth.TwitterAuthProvider();
 
-        function twitterSignIn(){
+        function twitterSignIn() {
             console.log('Twitter login coming...');
-            firebase.auth().signInWithPopup(twitterProvider).then(res=>{
+            firebase.auth().signInWithPopup(twitterProvider).then(res => {
                 console.log(res.user);
-                // showuser data 
-            }).catch(e=>{
+                // showuser data
+                showUserData(res.user)
+            }).catch(e => {
                 alert(e)
             })
         }
 
+
+        // show user data function
+        function showUserData(user) {
+            document.getElementById('userdetails').innerHTML =
+            `<img src="${user.photoURL}" style="width:20%; border-radius:50%" >
+            <p>Name: ${user.displayName}</p>
+            <p>Email: ${user.email}</p>`
+        }
+
+        // check auth state 
+        function checkAuthState(){
+            firebase.auth().onAuthStateChanged(user=>{
+                if(user){
+                    window.location = 'index.html'
+                    document.getElementById('logout').style.display = "block"
+                    document.getElementById('login').style.display = "none"
+                    document.getElementById('loginscreen').style.display = "none"
+                    document.getElementById('signup').style.display = "none"
+
+                    showUserData(user)
+                    
+                }
+                else{
+
+                }
+            })
+        }
+
+        // logout
+        function Logout(){
+            console.log("Logging out...");
+            firebase.auth().signOut().then(()=>{
+                document.getElementById('logout').style.display = "none"
+                document.getElementById('login').style.display = "block"
+                document.getElementById('signup').style.display = "block"
+                document.getElementById('loginscreen').style.display = "block"
+                document.getElementById('userdetails').style.display = "none"
+    
+            }).catch(e=>{
+                alert(e)
+            })
+        }
+        // check auth state
+        checkAuthState()
 
     </script>
 </body>
