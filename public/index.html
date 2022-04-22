@@ -30,17 +30,18 @@
     <nav>
         <div>
             <label class="logo">GlaZba</label>
-            <div class="userdetails">
+            <div class="userdetails" id="userdetails">
 
             </div>
 
         </div>
 
         <ul class="nav-links">
-            <li><a href="login.html">Sign In</a></li>
-            <li><a href="signup.html">Sign Up</a></li>
+            <li><a href="login.html" id="login">Sign In</a></li>
+            <li><a href="signup.html" id="signup">Sign Up</a></li>
             <li><a href="#">Select Artist</a></li>
             <li><a href="#">Search</a></li>
+            <li><a href="#" id="logout">Logout</a></li>
 
         </ul>
 
@@ -80,6 +81,47 @@
         const app = initializeApp(firebaseConfig);
         const auth = firebase.auth();
         const db = firebase.firestore();
+
+        document.getElementById('logout').style.display  = "none"
+        document.getElementById('logout').addEventListener('click', Logout)
+
+        function showUserData(user){
+            document.getElementById('userdetails').innerHTML = 
+            `<img src="${user.photoURL}" style="width:20%; border-radius:50%">
+            <p>Name: ${user.displayName}</p>
+            <p>Email: ${user.email}</p>`
+        }
+
+        function checkAuthState(){
+            firebase.auth().onAuthStateChanged(user=>{
+                if(user){
+                    document.getElementById('logout').style.display = "block"
+                    document.getElementById('login').style.display = "none"
+                    document.getElementById('signup').style.display = "none"
+
+                    showUserData(user)
+                    
+                }
+                else{
+
+                }
+            })
+        }
+
+        function Logout(){
+            console.log("Logging out...");
+            firebase.auth().signOut().then(()=>{
+                document.getElementById('logout').style.display = "none"
+                document.getElementById('login').style.display = "block"
+                document.getElementById('signup').style.display = "block"
+                document.getElementById('userdetails').style.display = "none"
+    
+            }).catch(e=>{
+                alert(e)
+            })
+        }
+
+        checkAuthState()
     </script>
     
 </body>
